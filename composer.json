@@ -1,0 +1,29 @@
+{
+  "name"             : "xervice/api",
+  "license"          : "MIT",
+  "authors"          : [
+    {
+      "name" : "Mike Bertram",
+      "email": "contact@mibexx.de"
+    }
+  ],
+  "require-dev": {
+    "codeception/codeception": "*",
+    "symfony/var-dumper": "*"
+  },
+  "require": {
+    "php": ">=7.1.0",
+    "xervice/data-provider": "^1.2.0",
+    "xervice/controller": "^1.2.0",
+    "xervice/security": "^2.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "XerviceTest\\": "tests/Xervice/",
+      "DataProvider\\": "src/Generated/"
+    },
+    "psr-0": {
+      "Xervice\\": "src/"
+    }
+  }
+}
