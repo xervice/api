@@ -1,9 +1,9 @@
 <?php
 
-namespace Xervice\Api\Business\Authenticator;
+namespace Xervice\Api\Business\Model\Authenticator;
 
 use Symfony\Component\HttpFoundation\Request;
-use Xervice\Kernel\Business\Service\ClearServiceInterface;
+use Xervice\Kernel\Business\Plugin\ClearServiceInterface;
 
 interface ApiAuthenticatorInterface extends ClearServiceInterface
 {

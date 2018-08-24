@@ -6,7 +6,7 @@ namespace XerviceTest\Api\Controller;
 
 use DataProvider\TestDataProvider;
 use Symfony\Component\HttpFoundation\Response;
-use Xervice\Api\Business\Controller\AbstractApiController;
+use Xervice\Api\Communication\Controller\AbstractApiController;
 
 class TestController extends AbstractApiController
 {
@@ -15,7 +15,6 @@ class TestController extends AbstractApiController
      * @param string $name
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Xervice\Api\Exception\ApiException
      */
     public function myRequestAction(TestDataProvider $dataProvider, string $name): Response
     {

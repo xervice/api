@@ -5,39 +5,40 @@ use DataProvider\ApiRequestDataProvider;
 use DataProvider\ApiResponseDataProvider;
 use DataProvider\TestDataProvider;
 use Symfony\Component\HttpFoundation\Request;
-use Xervice\Config\XerviceConfig;
-use Xervice\Controller\Business\Provider\KernelBridge;
-use Xervice\Core\Locator\Dynamic\DynamicLocator;
-use Xervice\Core\Locator\Locator;
+use Xervice\Config\Business\XerviceConfig;
+use Xervice\Controller\Business\Model\Provider\KernelBridge;
+use Xervice\Core\Business\Model\Locator\Dynamic\Business\DynamicBusinessLocator;
+use Xervice\Core\Business\Model\Locator\Locator;
+use Xervice\DataProvider\Business\DataProviderFacade;
 use Xervice\DataProvider\DataProviderConfig;
-use Xervice\DataProvider\DataProviderFacade;
 use XerviceTest\Api\Controller\TestController;
 use XerviceTest\Api\Controller\TestSecureController;
 
 /**
- * @method \Xervice\Api\ApiFactory getFactory()
+ * @method \Xervice\Api\Business\ApiBusinessFactory getFactory()
  */
 class IntegrationTest extends \Codeception\Test\Unit
 {
-    use DynamicLocator;
+    use DynamicBusinessLocator;
 
     protected function _before()
     {
-        XerviceConfig::getInstance()->getConfig()->set(DataProviderConfig::FILE_PATTERN, '*.dataprovider.xml');
+        XerviceConfig::set(DataProviderConfig::FILE_PATTERN, '*.dataprovider.xml');
         $this->getDataProviderFacade()->generateDataProvider();
-        XerviceConfig::getInstance()->getConfig()->set(DataProviderConfig::FILE_PATTERN, '*.testprovider.xml');
+        XerviceConfig::set(DataProviderConfig::FILE_PATTERN, '*.testprovider.xml');
         $this->getDataProviderFacade()->generateDataProvider();
     }
 
     protected function _after()
     {
-//        $this->getDataProviderFacade()->cleanDataProvider();
+        $this->getDataProviderFacade()->cleanDataProvider();
     }
 
     /**
      * @group Xervice
      * @group Api
      * @group Integration
+     * @throws \Xervice\Api\Business\Exception\ApiException
      */
     public function testApiController()
     {
@@ -199,7 +200,7 @@ class IntegrationTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @return \Xervice\DataProvider\DataProviderFacade
+     * @return \Xervice\DataProvider\Business\DataProviderFacade
      */
     private function getDataProviderFacade(): DataProviderFacade
     {

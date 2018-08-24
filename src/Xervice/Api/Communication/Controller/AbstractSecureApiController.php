@@ -1,11 +1,11 @@
 <?php
 
-namespace Xervice\Api\Business\Controller;
+namespace Xervice\Api\Communication\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Xervice\Api\ApiFacade;
-use Xervice\Api\Business\Authenticator\ApiAuthenticatorInterface;
+use Xervice\Api\Business\Exception\AuthorizationException;
+use Xervice\Api\Business\Model\Authenticator\ApiAuthenticatorInterface;
 
 abstract class AbstractSecureApiController extends AbstractApiController
 {
@@ -36,10 +36,22 @@ abstract class AbstractSecureApiController extends AbstractApiController
     }
 
     /**
-     * @return \Xervice\Api\Business\Authenticator\ApiAuthenticatorInterface
+     * @return \Xervice\Api\Business\Model\Authenticator\ApiAuthenticatorInterface
+     * @throws \Xervice\Api\Business\Exception\AuthorizationException
      */
     private function getAuthenticator(): ApiAuthenticatorInterface
     {
-        return $this->getService('apiAuthenticator');
+        $authenticator = $this->getService('apiAuthenticator');
+
+        if (!$authenticator instanceof ApiAuthenticatorInterface) {
+            throw new AuthorizationException(
+                sprintf(
+                    'No API authenticator service found. %s given',
+                    \get_class($authenticator)
+                )
+            );
+        }
+
+        return $authenticator;
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Xervice\Api\Business\Controller;
+namespace Xervice\Api\Communication\Controller;
 
 use DataProvider\ApiRequestDataProvider;
 use DataProvider\ApiResponseDataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Xervice\Api\Business\Exception\ApiException;
-use Xervice\Controller\Business\Controller\AbstractController;
-use Xervice\DataProvider\DataProvider\DataProviderInterface;
+use Xervice\Controller\Communication\Controller\AbstractController;
+use Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface;
 
 abstract class AbstractApiController extends AbstractController
 {
@@ -46,7 +46,7 @@ abstract class AbstractApiController extends AbstractController
     }
 
     /**
-     * @param \Xervice\DataProvider\DataProvider\DataProviderInterface $dataProvider
+     * @param \Xervice\DataProvider\Business\Model\DataProvider\DataProviderInterface $dataProvider
      * @param int $status
      * @param array $header
      *
@@ -66,12 +66,12 @@ abstract class AbstractApiController extends AbstractController
     }
 
     /**
-     * @param $string
+     * @param string $string
      * @param bool $capitalizeFirstCharacter
      *
-     * @return mixed
+     * @return string
      */
-    protected function dashesToCamelCase($string, $capitalizeFirstCharacter = false)
+    protected function dashesToCamelCase(string $string, bool $capitalizeFirstCharacter = false): string
     {
         $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
 

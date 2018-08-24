@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Xervice\Api\Business\Authenticator;
+namespace Xervice\Api\Business\Model\Authenticator;
 
 
 use DataProvider\ApiAuthDataProvider;
@@ -9,19 +9,19 @@ use DataProvider\AuthenticatorDataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Xervice\Api\Business\Exception\AuthorizationException;
 use Xervice\Security\Business\Exception\SecurityException;
-use Xervice\Security\SecurityFacade;
+use Xervice\Security\Business\SecurityFacade;
 
 class ApiAuthenticator implements ApiAuthenticatorInterface
 {
     /**
-     * @var \Xervice\Security\SecurityFacade
+     * @var \Xervice\Security\Business\SecurityFacade
      */
     private $securityFacade;
 
     /**
      * ApiAuthenticator constructor.
      *
-     * @param \Xervice\Security\SecurityFacade $securityFacade
+     * @param \Xervice\Security\Business\SecurityFacade $securityFacade
      */
     public function __construct(SecurityFacade $securityFacade)
     {

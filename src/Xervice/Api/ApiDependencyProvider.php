@@ -4,23 +4,35 @@
 namespace Xervice\Api;
 
 
-use Xervice\Core\Dependency\DependencyProviderInterface;
-use Xervice\Core\Dependency\Provider\AbstractProvider;
+use Xervice\Core\Business\Model\Dependency\DependencyContainerInterface;
+use Xervice\Core\Business\Model\Dependency\Provider\AbstractDependencyProvider;
 
-/**
- * @method \Xervice\Core\Locator\Locator getLocator()
- */
-class ApiDependencyProvider extends AbstractProvider
+class ApiDependencyProvider extends AbstractDependencyProvider
 {
     public const SECURITY_FACADE = 'security.facade';
 
     /**
-     * @param \Xervice\Core\Dependency\DependencyProviderInterface $dependencyProvider
+     * @param \Xervice\Core\Business\Model\Dependency\DependencyContainerInterface $container
+     *
+     * @return \Xervice\Core\Business\Model\Dependency\DependencyContainerInterface
      */
-    public function handleDependencies(DependencyProviderInterface $dependencyProvider): void
+    public function handleDependencies(DependencyContainerInterface $container): DependencyContainerInterface
     {
-        $dependencyProvider[self::SECURITY_FACADE] = function (DependencyProviderInterface $dependencyProvider) {
-            return $dependencyProvider->getLocator()->security()->facade();
-        };
+        $container = $this->addSecurityFacade($container);
+
+        return $container;
     }
+
+    /**
+     * @param \Xervice\Core\Business\Model\Dependency\DependencyContainerInterface $container
+     *
+     * @return \Xervice\Core\Business\Model\Dependency\DependencyContainerInterface
+     */
+    protected function addSecurityFacade(DependencyContainerInterface $container
+    ): \Xervice\Core\Business\Model\Dependency\DependencyContainerInterface {
+        $container[self::SECURITY_FACADE] = function (DependencyContainerInterface $container) {
+            return $container->getLocator()->security()->facade();
+        };
+        return $container;
+}
 }
