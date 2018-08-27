@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Xervice\Api\Communication\Plugin;
+namespace Xervice\Api\Business\Plugin;
 
 use Xervice\Core\Plugin\AbstractCommunicationPlugin;
 use Xervice\Kernel\Business\Model\Service\ServiceProviderInterface;

@@ -14,7 +14,7 @@ composer require xervice/api
 Configuration
 -----------------
 If you want to use secured api controller, you have to add the kernel service  and the authenticator to the security module:
-* You must add the "\Xervice\Api\Communication\Plugin\ApiAuthService" plugin to the kernel stack.
+* You must add the "\Xervice\Api\Business\Plugin\ApiAuthService" plugin to the kernel stack.
 * Also you must define your authoration types and add their authenticator (\Xervice\Api\Business\Model\Authenticator\ApiAuthenticator) to the security dependency provider.
 
 Using
